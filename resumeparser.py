@@ -12,7 +12,7 @@ SKILL_CATEGORIES = {
     "Tools": ["git", "docker", "aws", "gcp", "azure"]
 }
 
-LOCATIONS = ["Bengaluru", "Hyderabad", "Pune", "Chennai", "Mumbai", "Delhi", "Gurgaon", "Kolkata"]
+LOCATIONS = ["Bengaluru", "Hyderabad", "Pune", "Chennai", "Mumbai", "Delhi", "Gurgaon", "Kolkata","Coimbatore"]
 
 def extract_text_from_pdf(uploaded_file):
     text = ""
