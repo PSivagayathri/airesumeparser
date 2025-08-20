@@ -1,5 +1,5 @@
 streamlit
-PyMuPDF==1.23.7
+pymupdf==1.23.7
 spacy
 requests
 # force redeploy
