@@ -8,8 +8,9 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
-RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST")
+RAPIDAPI_KEY = st.secrets["RAPIDAPI_KEY"]
+RAPIDAPI_HOST = st.secrets["RAPIDAPI_HOST"]
+
 
 if not RAPIDAPI_KEY or not RAPIDAPI_HOST:
     st.error("API credentials are missing. Please check your .env file.")
