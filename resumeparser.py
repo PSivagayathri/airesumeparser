@@ -1,7 +1,19 @@
 import streamlit as st
-import fitz 
+import fitz
 import spacy
 import requests
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
+RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST")
+
+if not RAPIDAPI_KEY or not RAPIDAPI_HOST:
+    st.error("API credentials are missing. Please check your .env file.")
+    st.stop()
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -12,7 +24,10 @@ SKILL_CATEGORIES = {
     "Tools": ["git", "docker", "aws", "gcp", "azure"]
 }
 
-LOCATIONS = ["Bengaluru", "Hyderabad", "Pune", "Chennai", "Mumbai", "Delhi", "Gurgaon", "Kolkata","Coimbatore"]
+LOCATIONS = [
+    "Bengaluru", "Hyderabad", "Pune", "Chennai", "Mumbai",
+    "Delhi", "Gurgaon", "Kolkata", "Coimbatore"
+]
 
 def extract_text_from_pdf(uploaded_file):
     text = ""
@@ -39,8 +54,8 @@ def fetch_jobs_from_jsearch(role, location):
     url = "https://jsearch.p.rapidapi.com/search"
     querystring = {"query": query, "page": "1", "num_pages": "1", "page_size": "5", "country": "IN"}
     headers = {
-        "X-RapidAPI-Key": "4a918a2b62msh5cd1a3601c39646p1516eajsn720daf470c21",
-        "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
+        "X-RapidAPI-Key": RAPIDAPI_KEY,
+        "X-RapidAPI-Host": RAPIDAPI_HOST
     }
 
     response = requests.get(url, headers=headers, params=querystring)
@@ -60,6 +75,7 @@ def fetch_jobs_from_jsearch(role, location):
         raise Exception(f"API error: {response.status_code} - {response.text}")
 
     return results
+
 
 st.set_page_config(page_title="Resume Skill Extractor & Job Finder", layout="centered")
 
